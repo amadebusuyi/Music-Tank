@@ -1,0 +1,34 @@
+{% extends 'inc/base.html' %}
+
+<title>{% block title %}Welcome Home {% endblock %}</title>
+
+{% block pagecontent %}
+{% if songs %}
+<div class="row">
+{% for song in songs %}
+	<div class="col-sm-3" style="margin-top: 20px">
+		
+			<div class="card" style="background-image: url({{song.album.album_logo}}); background-size: cover">
+				<div class="card-header" style="height: 40px; background: rgba(255,255,255, 0.7); padding: 10px">
+					<h6>{{song.song_title}}</h6>
+					{% if song.is_favorite %}
+						<span style="position: absolute; right: 10px; top: 5px">
+							<img src="https://i.ya-webdesign.com/images/star-icon-png-transparent-background-3.png" width="20" height="auto">
+						</span>				
+					{% endif %}
+				</div>
+				<div class="card-body" style="background: rgba(255,255,255, 0.8); padding-bottom: 0px">
+					<p>Artist: {{song.album.artist}}</p>
+					<p>Genre: {{song.album.genre}}</p>
+					<p>Album: {{song.album.album_title}}</p>
+				</div>
+				<div class="card-footer" style="height: 35px; background: rgba(255,255,255, 0.7)"><a style="position: absolute; right: 10px; bottom: 7px;" href="{% url 'music:song_detail' song.pk %}">view more</a></div>
+			</div>
+
+	</div>
+{% endfor %}
+</div>
+
+{% endif %}
+
+{% endblock %}

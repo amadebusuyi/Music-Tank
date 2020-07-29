@@ -1,0 +1,33 @@
+{% extends 'inc/base.html' %}
+
+<title>{% block title %}Welcome Home {% endblock %}</title>
+
+{% block pagecontent %}
+{% if song %}
+		<div class="card" style="margin-top: 20px">
+			<h4 class="card-header">{{song.song_title}}</h4>
+			{% if song.is_favorite %}
+				<span style="position: absolute; right: 20px; top: 12px"><img src="https://i.ya-webdesign.com/images/star-icon-png-transparent-background-3.png" width="30" height="auto"></span>
+			{% endif %}				
+			<div class="card-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<img src="{{song.album.album_logo}}" height="450" width="600">
+					</div>
+					<div class="col-sm-6">
+						<p>
+							<a href="{% url 'music:update-song' song.pk %}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+							<a href="{% url 'music:delete-song' song.pk %}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+							<a href="{% url 'music:detail' song.album.pk %}" class="btn btn-secondary">Goto Album</a>
+						</p>
+						<p>Artist: {{song.album.artist}}</p>
+						<p>Genre: {{song.album.genre}}</p>
+						<p>Album: {{song.album.album_title}}  </p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endif %}
+
+{% endblock %}

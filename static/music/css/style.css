@@ -1,0 +1,31 @@
+body{
+	background: #fbfbfb !important;
+}
+
+/********************************************************/
+/*														*/
+/*   Styles for Albums									*/
+/*														*/
+/********************************************************/
+
+.album_songs{
+	display: block; 
+	padding: 10px; 
+	border: 1px solid green; 
+	margin-bottom: 7px; 
+	margin-left: 20px;
+}
+
+@media (min-width: 769px){
+.create-album-form{
+	width: 35vw;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform : translate(-50%, -45%);
+}
+}
+
+.create-album-form .card-footer{
+	text-align: right;
+}

@@ -1,0 +1,30 @@
+{% extends 'inc/base.html' %}
+
+<title>{% block title %}Welcome Home {% endblock %}</title>
+
+{% block pagecontent %}
+{% if albums %}
+
+	<div style="background: #fbfafc; margin-top: 30px" class="container">
+		<div class="row">
+<h1 style="text-align: center; color: #3d3e3f" class="col-sm-12">Here are the stored albums</h1>
+			{% for album in albums %}
+			<div style="margin: 0px; height: auto; padding: 10px" class="col-sm-3">
+				<a href="{% url 'music:detail' album.id %}" style="border: 1px solid grey; display: block; height: auto">
+						<img src="{{ album.album_logo }}" height="160px" alt="" width="100%">
+						<h6 style="margin: 8px; color: #3b3b3b">{{ album.album_title }} - {{ album.artist }}</h6>
+				</a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+
+{% else %}
+
+<h1>You have not added any music just yet</h1>
+
+{% endif %}
+
+{% endblock %}
+

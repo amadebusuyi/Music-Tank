@@ -1,0 +1,61 @@
+{% extends 'inc/base.html' %}
+
+<title>{% block title %} {{album.album_title}} {% endblock %}</title>
+
+{% block pagecontent %}
+
+{# <div style="position: fixed; left: 20px; top: 20px;"><a href="{% url 'music:back' %}">Back to Albums</a></div> #}
+{% if error_message %}
+<p style="text-align: center; color: red">{{ error_message }}</p>
+{% endif %}
+
+{% if album %}
+	<div class="container">
+		<div class="row" style="background:whitesmoke; margin-top: 10px; border: 1px solid grey; padding: 0 !important">
+		<div class="col-sm-6" style="margin-left: -15px; padding: 0">
+		<img class="col-sm-12" src="{{ album.album_logo }}" style="width: 100%; height: 500px;">
+		<h3 style="margin: 8px; text-align: center">{{ album.album_title }} - {{ album.artist }}</h3>
+		<hr style="width: 90%">
+		<p style="padding: 0px 10px; text-align: center">Genre - {{ album.genre }}</p>
+		</div>
+		<div class="col-sm-6">
+			<br>
+		<h2 style="text-align:center">Songs <a href="{% url 'music:add-song' album.id %}" class="btn btn-success" style="position: absolute; right: 20px">Add song</a></h2>
+		{% if album.song_set.all %}
+			{% for song in album.song_set.all %}
+			
+			<div class="album_songs">
+				<label for="song{{forloop.counter}}">
+					{{ song.song_title }}
+				</label>
+					
+					<div style="float: right; margin-top: -3px">
+						<a href="{% url 'music:song_detail' song.pk %}" class="btn btn-info">
+							<i class="fa fa-eye"></i>
+						</a>
+						<a href="{% url 'music:song_detail' song.pk %}" class="btn btn-danger">
+							<i class="fa fa-trash"></i>
+						</a>
+						{% if song.is_favorite %}
+							<a href="{% url 'music:favorite' album.id %}?song={{song.pk}}" style="margin-left: 5px;"><img src="https://i.ya-webdesign.com/images/star-icon-png-transparent-background-3.png" width="20" height="auto"></a>
+						{% else %}
+							<a href="{% url 'music:favorite' album.id %}?song={{song.pk}}" style="margin-left: 5px;"><img src="https://www.pngkit.com/png/detail/153-1536260_png-file-svg-transparent-star-icon-png.png" width="20" height="auto"></a>
+						{% endif %}
+					</div>
+			</div>
+			{% endfor %}
+		</form>
+		{% else %}
+		<p style="text-align: center">This album has no song</p>
+		{% endif %}
+	</div>
+</div>
+</div>
+
+
+{% else %}
+<h1>Album not found!</h1>
+
+{% endif %}
+
+{% endblock %}
